@@ -6,6 +6,8 @@ pipeline {
       steps {
         sh 'mvn clean package -DskipTests=true'
         archiveArtifacts 'target/hello-demo-*.jar'
+        sh "echo Sleep-Time - ${params.SLEEP_TIME}, Port - ${params.APP_PORT}, Branch - ${params.BRANCH_NAME}"
+
       }
     }
 
@@ -32,7 +34,7 @@ pipeline {
     
     stage('Integration Testing') {
       steps {
-        sh "sleep 10s"
+        sh "sleep ${params.SLEEP_TIME}"
         sh 'echo Testing using cURL commands......'
       }
     }
